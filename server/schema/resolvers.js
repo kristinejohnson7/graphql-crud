@@ -1,4 +1,4 @@
-const { UserList, MovieList } = require("../FakeData");
+const { UserList, CourseList } = require("../FakeData");
 const _ = require("lodash");
 
 const resolvers = {
@@ -12,22 +12,18 @@ const resolvers = {
       return user;
     },
 
-    movies: () => {
-      return MovieList;
+    courses: () => {
+      return CourseList;
     },
-    movie: (parent, args) => {
+    course: (parent, args) => {
       const name = args.name;
-      const movie = _.find(MovieList, { name });
-      return movie;
+      const course = _.find(CourseList, { name });
+      return course;
     },
   },
   User: {
-    favoriteMovies: () => {
-      return _.filter(
-        MovieList,
-        (movie) =>
-          movie.yearOfPublication >= 2000 && movie.yearOfPublication <= 2010
-      );
+    courses: () => {
+      return _.filter(CourseList, (course) => course);
     },
   },
 

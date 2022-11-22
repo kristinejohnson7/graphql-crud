@@ -1,5 +1,19 @@
 import React, { useState } from "react";
 import { useQuery, gql, useLazyQuery, useMutation } from "@apollo/client";
+import Button from "@mui/material/Button";
+import { Box, Grid, TextField, Select, MenuItem } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import Courses from "./Courses";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: "30px",
+  textAlign: "left",
+  color: theme.palette.text.secondary,
+  minWidth: "200px",
+}));
 
 const QUERY_ALL_USERS = gql`
   query GetAllUsers {
@@ -8,25 +22,7 @@ const QUERY_ALL_USERS = gql`
       name
       age
       username
-    }
-  }
-`;
-
-const QUERY_ALL_MOVIES = gql`
-  query GetAllMovies {
-    movies {
-      id
-      name
-      yearOfPublication
-    }
-  }
-`;
-
-const GET_MOVIE_BY_NAME = gql`
-  query Movie($name: String!) {
-    movie(name: $name) {
-      name
-      yearOfPublication
+      house
     }
   }
 `;
@@ -49,18 +45,13 @@ const DELETE_USER_MUTATION = gql`
 `;
 
 export default function DisplayData() {
-  const [movieSearched, setMovieSearched] = useState("");
-
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [username, setUsername] = useState("");
-  const [nationality, setNationality] = useState("");
+  const [house, setHouse] = useState("");
   const [userId, setUserId] = useState(0);
 
   const { data, loading, refetch } = useQuery(QUERY_ALL_USERS);
-  const { data: movieData } = useQuery(QUERY_ALL_MOVIES);
-  const [fetchMovie, { data: movieSearchedData, error: movieSearchedError }] =
-    useLazyQuery(GET_MOVIE_BY_NAME);
 
   const [createUser] = useMutation(CREATE_USER_MUTATION);
   const [deleteUser] = useMutation(DELETE_USER_MUTATION);
@@ -71,114 +62,120 @@ export default function DisplayData() {
 
   return (
     <div>
-      <div>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Age"
-          onChange={(e) => setAge(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Nationality"
-          onChange={(e) => setNationality(e.target.value.toUpperCase())}
-        />
-        <button
-          onClick={() => {
-            createUser({
-              variables: {
-                input: { name, username, age: Number(age), nationality },
-              },
-            });
-            refetch();
-          }}
-        >
-          Create User
-        </button>
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="User Id"
-          onChange={(e) => setUserId(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            deleteUser({
-              variables: {
-                id: Number(userId),
-              },
-            });
-            refetch();
-          }}
-        >
-          Delete User
-        </button>
-      </div>
-      <h1>Users:</h1>
-      {data.users &&
-        data.users.map((user) => {
-          const { name, age, username, id } = user;
-          return (
-            <div key={id}>
-              <h3>Name: {name}</h3>
-              <h3>Id: {id}</h3>
-              <h3>Username: {username}</h3>
-              <h3>Age: {age}</h3>
-            </div>
-          );
-        })}
-      <h1>Movies:</h1>
-      {movieData &&
-        movieData.movies.map((movie) => {
-          const { name, id, yearOfPublication } = movie;
-          return (
-            <div key={id}>
-              <h3>Name: {name}</h3>
-              <h3>Year of Publication: {yearOfPublication}</h3>
-            </div>
-          );
-        })}
-      <div>
-        <input
-          type="text"
-          placeholder="Interstellar"
-          onChange={(e) => {
-            setMovieSearched(e.target.value);
-          }}
-        />
-        <button
-          onClick={() =>
-            fetchMovie({
-              variables: {
-                name: movieSearched,
-              },
-            })
-          }
-        >
-          Fetch Data
-        </button>
-        <div>
-          {movieSearchedData && (
-            <div>
-              <h3>Movie Name: {movieSearchedData.movie.name}</h3>
-              <h3>
-                Year of Publication: {movieSearchedData.movie.yearOfPublication}
-              </h3>
-            </div>
-          )}
-          {movieSearchedError && <h2>There was an error fetching the movie</h2>}
+      <h1>Students:</h1>
+
+      <div className="studentsOptions">
+        <div className="options new">
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 1, width: "270px" },
+            }}
+            notValidate
+            autoComplete="off"
+          >
+            <h3>Create a new student:</h3>
+            <TextField
+              type="text"
+              label="Name"
+              required
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
+              type="text"
+              label="Username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              type="number"
+              label="Age"
+              required
+              onChange={(e) => setAge(e.target.value)}
+            />
+            <Select
+              type="text"
+              label="House"
+              required
+              onChange={(e) => setHouse(e.target.value.toUpperCase())}
+            >
+              <MenuItem value="Slytherin">Slytherin</MenuItem>
+              <MenuItem value="Ravenclaw">Ravenclaw</MenuItem>
+              <MenuItem value="Hufflepuff">Hufflepuff</MenuItem>
+              <MenuItem value="Gryffindor">Gryffindor</MenuItem>
+            </Select>
+          </Box>
+          <Button
+            variant="outlined"
+            id="button"
+            onClick={() => {
+              createUser({
+                variables: {
+                  input: { name, username, age: Number(age), house },
+                },
+              });
+              refetch();
+            }}
+          >
+            Create
+          </Button>
+        </div>
+        <div className="options">
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 1, width: "270px" },
+            }}
+            notValidate
+            autoComplete="off"
+          >
+            <h3>Delete a student:</h3>
+            <TextField
+              type="text"
+              label="User Id"
+              onChange={(e) => setUserId(e.target.value)}
+            />
+          </Box>
+          <Button
+            id="button"
+            onClick={() => {
+              deleteUser({
+                variables: {
+                  id: Number(userId),
+                },
+              });
+              refetch();
+            }}
+            variant="outlined"
+          >
+            Delete Student
+          </Button>
         </div>
       </div>
+      {data.users && (
+        <>
+          <h3>All students:</h3>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              {data.users.map((user) => {
+                const { name, age, username, id, house } = user;
+                return (
+                  <Grid sx={5} item>
+                    <Item key={id} variant="outlined">
+                      <h3>Name: {name}</h3>
+                      <h3>Id: {id}</h3>
+                      <h3>Username: {username}</h3>
+                      <h3>Age: {age}</h3>
+                      <h3>House: {house}</h3>
+                    </Item>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
+        </>
+      )}
+      <Courses />
     </div>
   );
 }

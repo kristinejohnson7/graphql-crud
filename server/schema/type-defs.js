@@ -6,27 +6,28 @@ const typeDefs = gql`
     name: String!
     username: String!
     age: Int!
-    nationality: Nationality!
+    house: House!
     friends: [User]
-    favoriteMovies: [Movie]
+    courses: [Course]
   }
-  type Movie {
+  type Course {
     id: ID!
     name: String!
-    yearOfPublication: Int!
-    isInTheaters: Boolean!
+    professor: String!
+    courseType: String!
+    currentlyOffered: Boolean!
   }
   type Query {
     users: [User!]!
     user(id: ID!): User!
-    movies: [Movie!]!
-    movie(name: String!): Movie!
+    courses: [Course!]!
+    course(name: String!): Course!
   }
   input CreateUserInput {
     name: String!
     username: String!
     age: Int!
-    nationality: Nationality = ITALY
+    house: House!
   }
   input UpdateUsernameInput {
     id: ID!
@@ -37,10 +38,11 @@ const typeDefs = gql`
     updateUsername(input: UpdateUsernameInput!): User
     deleteUser(id: ID!): User
   }
-  enum Nationality {
-    CANADA
-    ITALY
-    ALASKA
+  enum House {
+    GRYFFINDOR
+    HUFFLEPUFF
+    RAVENCLAW
+    SLYTHERIN
   }
 `;
 

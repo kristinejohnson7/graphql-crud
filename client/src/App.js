@@ -1,6 +1,7 @@
 import "./App.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import DisplayData from "./DisplayData";
+import { Container } from "@mui/material";
 
 function App() {
   const client = new ApolloClient({
@@ -9,9 +10,9 @@ function App() {
   });
   return (
     <ApolloProvider client={client}>
-      <div className="App">
+      <Container className="App">
         <DisplayData />
-      </div>
+      </Container>
     </ApolloProvider>
   );
 }

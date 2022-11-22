@@ -4,14 +4,14 @@ const UserList = [
     name: "Kristine",
     username: "kay",
     age: 30,
-    nationality: "CANADA",
+    house: "RAVENCLAW",
     friends: [
       {
         id: 2,
         name: "Santa",
         userName: "Claus",
         age: 310,
-        nationality: "ALASKA",
+        house: "SLYTHERIN",
       },
     ],
   },
@@ -20,23 +20,25 @@ const UserList = [
     name: "Santa",
     username: "Claus",
     age: 310,
-    nationality: "ALASKA",
+    house: "SLYTHERIN",
   },
 ];
 
-const MovieList = [
+const CourseList = [
   {
     id: 1,
-    name: "Avengers Endgame",
-    yearOfPublication: 2019,
-    isInTheaters: true,
+    name: "Astronomy",
+    professor: "Aurora Sinistra",
+    courseType: "Core",
+    currentlyOffered: true,
   },
   {
     id: 2,
-    name: "Interstellar",
-    yearOfPublication: 2007,
-    isInTheaters: false,
+    name: "Charms",
+    professor: "Filius Filtwick",
+    courseType: "Core",
+    currentlyOffered: true,
   },
 ];
 
-module.exports = { UserList, MovieList };
+module.exports = { UserList, CourseList };
