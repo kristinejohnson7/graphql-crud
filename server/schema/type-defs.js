@@ -6,7 +6,7 @@ const typeDefs = gql`
     name: String!
     username: String!
     age: Int!
-    house: House!
+    house: House
     friends: [User]
     courses: [Course]
   }

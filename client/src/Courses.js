@@ -35,6 +35,7 @@ const GET_COURSE_BY_NAME = gql`
 
 export default function Courses() {
   const [courseSearched, setCourseSearched] = useState("");
+  const [studentsEditForm, setStudentsEditForm] = useState(false);
 
   const { data: courseData } = useQuery(QUERY_ALL_COURSES);
   const [
@@ -45,15 +46,17 @@ export default function Courses() {
   return (
     <>
       <h1>Courses:</h1>
+      <button onClick={() => setStudentsEditForm(!studentsEditForm)}>
+        Search for a course
+      </button>
       {courseData && (
         <>
-          <div className="options">
+          <div className={`options ${studentsEditForm ? "open" : null}`}>
             <Box
               component="form"
               sx={{
                 "& > :not(style)": { m: 1, width: "370px" },
               }}
-              notValidate
               autoComplete="off"
             >
               <h3>Search for a course:</h3>
@@ -98,8 +101,8 @@ export default function Courses() {
               {courseData.courses.map((course) => {
                 const { name, id, professor, courseType } = course;
                 return (
-                  <Grid sx={5} item>
-                    <Item key={id} variant="outlined">
+                  <Grid sx={5} item key={id}>
+                    <Item variant="outlined">
                       <h3>Name: {name}</h3>
                       <h3>Professor: {professor}</h3>
                       <h3>Course Type: {courseType} </h3>

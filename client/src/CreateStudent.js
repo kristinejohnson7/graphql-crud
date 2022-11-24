@@ -6,7 +6,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import UserContext from "./context";
 import { QUERY_ALL_USERS, CREATE_USER_MUTATION } from "./services/userService";
 
-export default function CreateUser() {
+export default function CreateStudent() {
   const { name, setName, age, setAge, username, setUsername, house, setHouse } =
     useContext(UserContext);
 
@@ -30,11 +30,10 @@ export default function CreateUser() {
         sx={{
           "& > :not(style)": { m: 1, width: "270px" },
         }}
-        notValidate
         autoComplete="off"
       >
-        {newStudentInputs.map((input) => (
-          <Input input={input} />
+        {newStudentInputs.map((input, index) => (
+          <Input input={input} key={index} />
         ))}
         <Select
           type="text"
