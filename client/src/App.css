@@ -10,10 +10,11 @@ body {
 }
 
 .options {
-  display: flex;
-  flex-direction: column;
-  height: 225px;
-  justify-content: space-between;
+  display: none;
+}
+
+.options.open {
+  display: block;
 }
 
 .options.new {
