@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQuery, gql, useLazyQuery, useMutation } from "@apollo/client";
 import Button from "@mui/material/Button";
 import { Box, Grid, TextField, Select, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Courses from "./Courses";
+import Input from "./Input";
+import { houses } from "./constants/variables";
+import UserContext from "./context";
+import {
+  QUERY_ALL_USERS,
+  CREATE_USER_MUTATION,
+  DELETE_USER_MUTATION,
+  UPDATE_USERNAME_MUTATION,
+} from "./services/userService";
+import CreateUser from "./CreateUser";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,46 +25,26 @@ const Item = styled(Paper)(({ theme }) => ({
   minWidth: "200px",
 }));
 
-const QUERY_ALL_USERS = gql`
-  query GetAllUsers {
-    users {
-      id
-      name
-      age
-      username
-      house
-    }
-  }
-`;
-
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUser($input: CreateUserInput!) {
-    createUser(input: $input) {
-      name
-      id
-    }
-  }
-`;
-
-const DELETE_USER_MUTATION = gql`
-  mutation DeleteUser($id: ID!) {
-    deleteUser(id: $id) {
-      name
-    }
-  }
-`;
-
 export default function DisplayData() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
-  const [username, setUsername] = useState("");
-  const [house, setHouse] = useState("");
-  const [userId, setUserId] = useState(0);
+  const {
+    name,
+    setName,
+    age,
+    setAge,
+    username,
+    setUsername,
+    house,
+    setHouse,
+    userId,
+    setUserId,
+  } = useContext(UserContext);
+
+  const [studentsEditForm, setStudentsEditForm] = useState(false);
 
   const { data, loading, refetch } = useQuery(QUERY_ALL_USERS);
 
-  const [createUser] = useMutation(CREATE_USER_MUTATION);
   const [deleteUser] = useMutation(DELETE_USER_MUTATION);
+  const [updateUsername] = useMutation(UPDATE_USERNAME_MUTATION);
 
   if (loading) {
     return <h1>Data is loading...</h1>;
@@ -63,62 +53,20 @@ export default function DisplayData() {
   return (
     <div>
       <h1>Students:</h1>
-
-      <div className="studentsOptions">
-        <div className="options new">
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { m: 1, width: "270px" },
-            }}
-            notValidate
-            autoComplete="off"
-          >
-            <h3>Create a new student:</h3>
-            <TextField
-              type="text"
-              label="Name"
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              type="text"
-              label="Username"
-              required
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              type="number"
-              label="Age"
-              required
-              onChange={(e) => setAge(e.target.value)}
-            />
-            <Select
-              type="text"
-              label="House"
-              required
-              onChange={(e) => setHouse(e.target.value.toUpperCase())}
-            >
-              <MenuItem value="Slytherin">Slytherin</MenuItem>
-              <MenuItem value="Ravenclaw">Ravenclaw</MenuItem>
-              <MenuItem value="Hufflepuff">Hufflepuff</MenuItem>
-              <MenuItem value="Gryffindor">Gryffindor</MenuItem>
-            </Select>
-          </Box>
-          <Button
-            variant="outlined"
-            id="button"
-            onClick={() => {
-              createUser({
-                variables: {
-                  input: { name, username, age: Number(age), house },
-                },
-              });
-              refetch();
-            }}
-          >
-            Create
-          </Button>
+      <div>
+        <button onClick={() => setStudentsEditForm(!studentsEditForm)}>
+          Create student
+        </button>
+        <button onClick={() => setStudentsEditForm(true)}>
+          Delete a student
+        </button>
+        <button onClick={() => setStudentsEditForm(true)}>
+          Update username
+        </button>
+      </div>
+      <div className={`studentsOptions`}>
+        <div className={`options new ${studentsEditForm ? "open" : null}`}>
+          <CreateUser />
         </div>
         <div className="options">
           <Box
@@ -129,7 +77,7 @@ export default function DisplayData() {
             notValidate
             autoComplete="off"
           >
-            <h3>Delete a student:</h3>
+            {/* <h3>Delete a student:</h3> */}
             <TextField
               type="text"
               label="User Id"
@@ -144,6 +92,43 @@ export default function DisplayData() {
                   id: Number(userId),
                 },
               });
+              refetch();
+            }}
+            variant="outlined"
+          >
+            Delete Student
+          </Button>
+        </div>
+        <div className="options">
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 1, width: "270px" },
+            }}
+            notValidate
+            autoComplete="off"
+          >
+            <h3>Update student username:</h3>
+            <TextField
+              type="text"
+              label="Student Id"
+              onChange={(e) => setUserId(e.target.value)}
+            />
+            <TextField
+              type="text"
+              label="New username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Box>
+          <Button
+            id="button"
+            onClick={() => {
+              updateUsername({
+                variables: {
+                  input: { id: Number(userId), newUsername: username },
+                },
+              });
+              console.log(username);
               refetch();
             }}
             variant="outlined"
