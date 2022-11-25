@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import Input from "./Input";
-import { houses } from "./constants/variables";
+import { houses } from "../constants/variables";
 import { Box, Button, Select, MenuItem } from "@mui/material";
 import { useQuery, useMutation } from "@apollo/client";
-import UserContext from "./context";
-import { QUERY_ALL_USERS, CREATE_USER_MUTATION } from "./services/userService";
+import UserContext from "../context";
+import { QUERY_ALL_USERS, CREATE_USER_MUTATION } from "../services/userService";
 
 export default function CreateStudent() {
   const { name, setName, age, setAge, username, setUsername, house, setHouse } =

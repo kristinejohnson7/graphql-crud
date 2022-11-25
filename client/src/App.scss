@@ -11,22 +11,26 @@ body {
 
 .options {
   display: none;
-}
 
-.options.open {
-  display: block;
-}
+  &.open {
+    display: block;
+  }
 
-.options.new {
-  width: 60%;
-}
+  &.new {
+    width: 60%;
 
-.options.new button {
-  margin: 8px;
-  max-width: 559px;
-  width: 92%;
+    button {
+      margin: 8px;
+      max-width: 559px;
+      width: 92%;
+    }
+  }
 }
 
 h3 {
   margin: 8px;
+}
+
+.studentButtonsContainer button {
+  margin-right: 1rem;
 }

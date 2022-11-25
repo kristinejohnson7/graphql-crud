@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Box, Button, Grid, Paper, TextField } from "@mui/material";
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { styled } from "@mui/material/styles";
+import {
+  QUERY_ALL_COURSES,
+  GET_COURSE_BY_NAME,
+} from "../services/courseService";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -11,27 +15,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   minWidth: "200px",
 }));
-
-const QUERY_ALL_COURSES = gql`
-  query GetAllCourses {
-    courses {
-      id
-      name
-      professor
-      courseType
-      currentlyOffered
-    }
-  }
-`;
-
-const GET_COURSE_BY_NAME = gql`
-  query Course($name: String!) {
-    course(name: $name) {
-      name
-      professor
-    }
-  }
-`;
 
 export default function Courses() {
   const [courseSearched, setCourseSearched] = useState("");
@@ -46,9 +29,12 @@ export default function Courses() {
   return (
     <>
       <h1>Courses:</h1>
-      <button onClick={() => setStudentsEditForm(!studentsEditForm)}>
+      <Button
+        onClick={() => setStudentsEditForm(!studentsEditForm)}
+        variant="outlined"
+      >
         Search for a course
-      </button>
+      </Button>
       {courseData && (
         <>
           <div className={`options ${studentsEditForm ? "open" : null}`}>
