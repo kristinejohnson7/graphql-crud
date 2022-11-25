@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Grid, Paper, styled } from "@mui/material";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_USERS } from "./services/userService";
+import { QUERY_ALL_USERS } from "../services/userService";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",

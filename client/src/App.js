@@ -1,6 +1,6 @@
-import "./App.css";
+import "./App.scss";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import DisplayData from "./DisplayData";
+import DisplayData from "./components/DisplayData";
 import { Container } from "@mui/material";
 import { UserProvider } from "./context";
 
