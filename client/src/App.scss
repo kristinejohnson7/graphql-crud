@@ -2,11 +2,14 @@ body {
   background-color: #f8f8f8;
   font-family: "Roboto Mono", monospace;
   padding-bottom: 100px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 4rem;
 }
 
 .studentsOptions {
-  display: flex;
-  margin-bottom: 3rem;
+  margin: 0.5rem 0 3rem;
+  width: 50%;
 }
 
 .options {
@@ -16,14 +19,8 @@ body {
     display: block;
   }
 
-  &.new {
-    width: 60%;
-
-    button {
-      margin: 8px;
-      max-width: 559px;
-      width: 92%;
-    }
+  button {
+    margin: 8px;
   }
 }
 
@@ -33,4 +30,35 @@ h3 {
 
 .studentButtonsContainer button {
   margin-right: 1rem;
+}
+
+.navbar {
+  background-color: #4d0e0e;
+  height: 70px;
+  padding: 0.5rem 1rem;
+
+  img {
+    height: 70px;
+    text-align: left;
+  }
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined {
+  color: #4d0e0e;
+  border-color: #4d0e0e;
+}
+
+.formHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.exitButton {
+  cursor: pointer;
+  text-align: right;
+}
+
+.delete {
+  max-width: 290px;
 }

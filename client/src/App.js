@@ -1,6 +1,7 @@
 import "./App.scss";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import DisplayData from "./components/DisplayData";
+import Nav from "./components/Nav";
 import { Container } from "@mui/material";
 import { UserProvider } from "./context";
 
@@ -12,6 +13,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <UserProvider>
+        <Nav />
         <Container className="App">
           <DisplayData />
         </Container>
