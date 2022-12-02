@@ -27,10 +27,10 @@ export default function DisplayData() {
     <div>
       <h1>Students:</h1>
       <div className="studentButtonsContainer">
-        {formButtonOptions.map((button) => {
+        {formButtonOptions.map((button, index) => {
           const { title, submit } = button;
           return (
-            <Button variant="outlined" onClick={submit}>
+            <Button variant="outlined" onClick={submit} key={index}>
               {title}
             </Button>
           );

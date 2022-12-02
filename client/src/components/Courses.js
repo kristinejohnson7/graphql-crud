@@ -27,7 +27,7 @@ export default function Courses() {
   ] = useLazyQuery(GET_COURSE_BY_NAME);
 
   return (
-    <>
+    <div className="courses">
       <h1>Courses:</h1>
       <Button
         onClick={() => setStudentsEditForm(!studentsEditForm)}
@@ -49,6 +49,7 @@ export default function Courses() {
               <TextField
                 type="text"
                 label="Charms"
+                value={courseSearched}
                 required
                 onChange={(e) => {
                   setCourseSearched(e.target.value);
@@ -58,16 +59,16 @@ export default function Courses() {
             <Button
               variant="outlined"
               style={{ width: 370, margin: 8 }}
-              id="button"
-              onClick={() =>
+              onClick={() => {
                 fetchCourse({
                   variables: {
                     name: courseSearched,
                   },
-                })
-              }
+                });
+                setCourseSearched("");
+              }}
             >
-              Fetch Data
+              Search
             </Button>
             <div>
               {courseSearchedData && (
@@ -81,13 +82,13 @@ export default function Courses() {
               )}
             </div>
           </div>
-          <Box sx={{ flexGrow: 1, marginTop: "2rem" }}>
+          <Box>
             <h3>All courses:</h3>
             <Grid container spacing={2}>
               {courseData.courses.map((course) => {
                 const { name, id, professor, courseType } = course;
                 return (
-                  <Grid sx={5} item key={id}>
+                  <Grid xs={6} md={4} item key={id}>
                     <Item variant="outlined">
                       <h3>Name: {name}</h3>
                       <h3>Professor: {professor}</h3>
@@ -100,6 +101,6 @@ export default function Courses() {
           </Box>
         </>
       )}
-    </>
+    </div>
   );
 }

@@ -27,16 +27,20 @@ export default function DisplayStudentForms({ activeForm, setActiveForm }) {
         },
       });
       refetch();
+      setUserId("");
+      setUsername("");
     },
     inputs: [
       {
         type: "text",
         label: "Student ID",
+        value: userId,
         change: (e) => setUserId(e.target.value),
       },
       {
         type: "text",
         label: "New  username",
+        value: username,
         change: (e) => setUsername(e.target.value),
       },
     ],
@@ -51,11 +55,13 @@ export default function DisplayStudentForms({ activeForm, setActiveForm }) {
         },
       });
       refetch();
+      setUserId("");
     },
     inputs: [
       {
         type: "text",
         label: "User Id",
+        value: userId,
         change: (e) => setUserId(e.target.value),
       },
     ],
@@ -81,17 +87,17 @@ export default function DisplayStudentForms({ activeForm, setActiveForm }) {
 
   return (
     <div className={`studentsOptions`}>
-      {generateStudentFormOptions.map((form) => {
+      {generateStudentFormOptions.map((form, index) => {
         const { render, title, component } = form;
         return (
-          <div className={`options ${render}`}>
+          <div className={`options ${render}`} key={index}>
             <div className="formHeader">
               <h4>{title}:</h4>
               <div
                 className="exitButton"
                 onClick={() => setActiveForm(FORM_OPTIONS.none)}
               >
-                <i class="fa-solid fa-x"></i>
+                <i className="fa-solid fa-x"></i>
               </div>
             </div>
             {component}

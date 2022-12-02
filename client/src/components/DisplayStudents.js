@@ -24,12 +24,12 @@ export default function DisplayStudents() {
       {data.users && (
         <>
           <h3>All students:</h3>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box>
             <Grid container spacing={2}>
               {data.users.map((user) => {
                 const { name, age, username, id, house } = user;
                 return (
-                  <Grid sx={5} item key={id}>
+                  <Grid item xs={6} md={4} key={id}>
                     <Item variant="outlined">
                       <h3>Name: {name}</h3>
                       <h3>Id: {id}</h3>
