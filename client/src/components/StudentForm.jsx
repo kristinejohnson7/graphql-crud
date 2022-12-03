@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import Input from "./Input";
+import Input from "./Input.tsx";
 
 export default function StudentForm({ data }) {
   const { submit, button, inputs } = data;

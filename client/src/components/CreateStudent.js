@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Input from "./Input";
+import Input from "./Input.tsx";
 import { houses } from "../constants/variables";
 import { Box, Button, Select, MenuItem } from "@mui/material";
 import { useQuery, useMutation } from "@apollo/client";

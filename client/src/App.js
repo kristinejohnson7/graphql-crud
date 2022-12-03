@@ -1,7 +1,7 @@
 import "./App.scss";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import DisplayData from "./components/DisplayData";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav.tsx";
 import { Container } from "@mui/material";
 import { UserProvider } from "./context";
 
