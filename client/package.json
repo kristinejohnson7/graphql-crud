@@ -41,10 +41,6 @@
       "last 1 safari version"
     ]
   },
-  "include": [
-    "src/components",
-    "src/custom.d.ts"
-  ],
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.10",

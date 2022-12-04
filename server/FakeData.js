@@ -1,26 +1,26 @@
 const UserList = [
   {
     id: 1,
-    name: "Kristine",
-    username: "kay",
+    name: "Harry Potter",
+    username: "hp",
     age: 30,
-    house: "RAVENCLAW",
+    house: "GRYFFINDOR",
     friends: [
       {
         id: 2,
-        name: "Santa",
-        userName: "Claus",
-        age: 310,
+        name: "Draco Malfoy",
+        userName: "malfoy",
+        age: 30,
         house: "SLYTHERIN",
       },
     ],
   },
   {
     id: 2,
-    name: "Santa",
-    username: "Claus",
-    age: 310,
-    house: "SLYTHERIN",
+    name: "Ronald Weasley",
+    username: "ron",
+    age: 30,
+    house: "GRYFFINDOR",
   },
 ];
 
