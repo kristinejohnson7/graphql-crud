@@ -4,10 +4,10 @@ const UserContext = createContext();
 
 export function UserProvider({ children }) {
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
   const [username, setUsername] = useState("");
   const [house, setHouse] = useState("");
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState("");
 
   return (
     <UserContext.Provider

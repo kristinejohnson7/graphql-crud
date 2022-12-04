@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Input from "./Input";
+import Input from "./Input.tsx";
 import { houses } from "../constants/variables";
 import { Box, Button, Select, MenuItem } from "@mui/material";
 import { useQuery, useMutation } from "@apollo/client";
@@ -11,13 +11,24 @@ export default function CreateStudent() {
     useContext(UserContext);
 
   const newStudentInputs = [
-    { type: "text", label: "Name", change: (e) => setName(e.target.value) },
+    {
+      type: "text",
+      label: "Name",
+      change: (e) => setName(e.target.value),
+      value: name,
+    },
     {
       type: "text",
       label: "Username",
+      value: username,
       change: (e) => setUsername(e.target.value),
     },
-    { type: "number", label: "Age", change: (e) => setAge(e.target.value) },
+    {
+      type: "number",
+      label: "Age",
+      value: age,
+      change: (e) => setAge(e.target.value),
+    },
   ];
 
   const [createUser] = useMutation(CREATE_USER_MUTATION);
@@ -36,14 +47,14 @@ export default function CreateStudent() {
           <Input input={input} key={index} />
         ))}
         <Select
-          type="text"
+          labelId="house-name"
           label="House"
           required
           onChange={(e) => setHouse(e.target.value.toUpperCase())}
         >
-          {houses.map((house, index) => (
-            <MenuItem value={house} key={index}>
-              {house}
+          {houses.map((houseName, index) => (
+            <MenuItem value={houseName} key={index}>
+              {houseName}
             </MenuItem>
           ))}
         </Select>
@@ -58,6 +69,10 @@ export default function CreateStudent() {
             },
           });
           refetch();
+          setHouse("");
+          setAge("");
+          setName("");
+          setUsername("");
         }}
       >
         Create

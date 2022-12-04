@@ -1,3 +1,3 @@
-## Client side created to test GraphQL endpoints for creating a user, and displaying users and movies.
+## Client side created to test GraphQL endpoints for CRUD operations.
 
-### Be sure to start server side before running client side.
+### Before running operations on client side, be sure to start server.
