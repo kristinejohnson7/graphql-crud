@@ -1,33 +1,40 @@
 import React, { useContext } from "react";
-import Input from "./Input.tsx";
+import Input from "./Input";
 import { houses } from "../constants/variables";
-import { Box, Button, Select, MenuItem } from "@mui/material";
+import { Box, Button, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { useQuery, useMutation } from "@apollo/client";
 import UserContext from "../context";
 import { QUERY_ALL_USERS, CREATE_USER_MUTATION } from "../services/userService";
+
+type CreateStudentInput = {
+  type: string;
+  label: string;
+  change: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  value: string;
+}
 
 export default function CreateStudent() {
   const { name, setName, age, setAge, username, setUsername, house, setHouse } =
     useContext(UserContext);
 
-  const newStudentInputs = [
+  const newStudentInputs: CreateStudentInput[] = [
     {
       type: "text",
       label: "Name",
-      change: (e) => setName(e.target.value),
+      change: (e) => setName(e.currentTarget.value),
       value: name,
     },
     {
       type: "text",
       label: "Username",
       value: username,
-      change: (e) => setUsername(e.target.value),
+      change: (e) => setUsername(e.currentTarget.value),
     },
     {
       type: "number",
       label: "Age",
       value: age,
-      change: (e) => setAge(e.target.value),
+      change: (e) => setAge(e.currentTarget.value),
     },
   ];
 
@@ -50,7 +57,7 @@ export default function CreateStudent() {
           labelId="house-name"
           label="House"
           required
-          onChange={(e) => setHouse(e.target.value.toUpperCase())}
+          onChange={(event: SelectChangeEvent<string>) => setHouse(event!.target.value.toUpperCase())}
         >
           {houses.map((houseName, index) => (
             <MenuItem value={houseName} key={index}>
