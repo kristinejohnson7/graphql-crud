@@ -12,6 +12,14 @@ const Item = styled(Paper)(({ theme }) => ({
   minWidth: "200px",
 }));
 
+type User = {
+  id: string,
+  name: string,
+  age: number,
+  username: string,
+  house: string
+}
+
 export default function DisplayStudents() {
   const { data, loading } = useQuery(QUERY_ALL_USERS);
 
@@ -26,7 +34,7 @@ export default function DisplayStudents() {
           <h3>All students:</h3>
           <Box>
             <Grid container spacing={2}>
-              {data.users.map((user) => {
+              {data.users.map((user: User) => {
                 const { name, age, username, id, house } = user;
                 return (
                   <Grid item xs={6} md={4} key={id}>

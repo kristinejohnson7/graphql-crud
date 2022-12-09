@@ -10,7 +10,12 @@ import {
 } from "../services/userService";
 import { useQuery, useMutation } from "@apollo/client";
 
-export default function DisplayStudentForms({ activeForm, setActiveForm }) {
+interface DisplayFormProps {
+  activeForm: string;
+  setActiveForm: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function DisplayStudentForms({ activeForm, setActiveForm }: DisplayFormProps) {
   const { username, setUsername, userId, setUserId } = useContext(UserContext);
 
   const { refetch } = useQuery(QUERY_ALL_USERS);
@@ -34,14 +39,14 @@ export default function DisplayStudentForms({ activeForm, setActiveForm }) {
       {
         type: "text",
         label: "Student ID",
+        change: (e: React.FormEvent<HTMLInputElement>) => setUserId(e.currentTarget.value),
         value: userId,
-        change: (e) => setUserId(e.target.value),
       },
       {
         type: "text",
         label: "New  username",
+        change: (e: React.FormEvent<HTMLInputElement>) => setUsername(e.currentTarget.value),
         value: username,
-        change: (e) => setUsername(e.target.value),
       },
     ],
   };
@@ -62,7 +67,7 @@ export default function DisplayStudentForms({ activeForm, setActiveForm }) {
         type: "text",
         label: "User Id",
         value: userId,
-        change: (e) => setUserId(e.target.value),
+        change: (e: React.FormEvent<HTMLInputElement>) => setUserId(e.currentTarget.value),
       },
     ],
   };
